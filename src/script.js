@@ -24,10 +24,6 @@ const publicAdress = path.join(__dirname, "../public");
 
 app.use(express.static(publicAdress));
 
-app.get("/", (req, res) => {
-  res.send("Hello world");
-});
-
 io.on("connection", (socket) => {
   console.log("New WebSocket connection");
 

@@ -30,7 +30,7 @@ const autoscroll = () => {
   //Toatal height of message container
   const containerHeight = $messageContainer.scrollHeight;
   //How far i have scrolled
-  const scrollOffset = Math.trunc($messageContainer.scrollTop) + VisibleHeight;
+  const scrollOffset = $messageContainer.scrollTop + VisibleHeight;
 
   if (containerHeight - newMessageHeight <= scrollOffset) {
     $messageContainer.scrollTop = $messageContainer.scrollHeight;
@@ -48,7 +48,6 @@ socket.on("message", (message) => {
 });
 
 socket.on("locationMessage", (message) => {
-  console.log(message);
   const html = Mustache.render($locationTemplate, {
     username: message.username,
     url: message.url,
@@ -74,7 +73,6 @@ $submit.addEventListener("click", (e) => {
     $submit.removeAttribute("disabled");
     $message.value = "";
     $message.focus();
-    console.log(response);
   });
 });
 
@@ -86,7 +84,6 @@ $shareLocationButton.addEventListener("click", () => {
     const { latitude, longitude } = position.coords;
     socket.emit("sendLocation", { latitude, longitude }, (response) => {
       $shareLocationButton.removeAttribute("disabled");
-      console.log(response);
     });
   });
 });
